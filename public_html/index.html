@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLSU Lab Reservation System - Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h1 class="system-title text-center">DLSU Lab Reservation System</h1>
+            <h2 class="text-center">Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" id="loginEmail" class="form-control" placeholder="DLSU Email">
+                </div>
+                <div class="form-group position-relative">
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Password">
+                    <span class="show-password" onclick="togglePasswordVisibility()">Show</span>
+                </div>
+                <div class="form-group action-links">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <a href="#" class="register-account">Register new account</a>
+                </div>
+                <button type="submit" class="btn login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.system-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem; /* Space between the title and the login heading */
+    text-align: center;
+}
+
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.login-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.form-control {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0; /* Flat style */
+    margin-bottom: 1rem;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+}
+
+.show-password {
+    position: absolute;
+    right: 10px;
+    top: 50%; /* Center vertically in the input */
+    transform: translateY(-50%); /* Center vertically in the input */
+    padding: 0;
+    background: none;
+    border: none;
+    color: #667eea;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.action-links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.action-links a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.action-links a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 20px; /* Rounded button edges */
+    border: none;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.login-btn {
+    background-color: #667eea;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .login-card {
+        margin: 1rem;
+    }
+}
