@@ -6,29 +6,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Sample reservation data - Replace with actual data fetched from the server
   let reservationData = [
-    { lab: 1, time: '9:00 AM', user: 'Juan dela Cruz', status: 'Not checked in', minutesLate: 5 },
-    { lab: 2, time: '9:30 AM', user: 'Maria Santos', status: 'Checked in', minutesLate: 0 },
-    { lab: 3, time: '10:00 AM', user: 'Pedro Reyes', status: 'Not checked in', minutesLate: 7 },
-    { lab: 1, time: '10:30 AM', user: 'Sofia Rivera', status: 'Not checked in', minutesLate: 20 },
-    { lab: 2, time: '11:00 AM', user: 'Diego Garcia', status: 'Checked in', minutesLate: 0 },
-    { lab: 3, time: '11:30 AM', user: 'Carmela Hernandez', status: 'Checked in', minutesLate: 0 },
-    { lab: 1, time: '12:00 PM', user: 'Josefina Lim', status: 'Not checked in', minutesLate: 10 },
-    { lab: 2, time: '12:30 PM', user: 'Ramon Cruz', status: 'Not checked in', minutesLate: 0 },
-    { lab: 3, time: '1:00 PM', user: 'Luz Reyes', status: 'Checked in', minutesLate: 0 },
-    { lab: 1, time: '1:30 PM', user: 'Elena Santos', status: 'Checked in', minutesLate: 0 },
-    { lab: 2, time: '2:00 PM', user: 'Antonio dela Cruz', status: 'Checked in', minutesLate: 0 },
-    { lab: 3, time: '2:30 PM', user: 'Angela Garcia', status: 'Not checked in', minutesLate: 12 },
-    { lab: 1, time: '3:00 PM', user: 'Felipe Santos', status: 'Not checked in', minutesLate: 0 },
-    { lab: 2, time: '3:30 PM', user: 'Carmen Reyes', status: 'Checked in', minutesLate: 0 },
-    { lab: 3, time: '4:00 PM', user: 'Emilio Santos', status: 'Not checked in', minutesLate: 0 },
-    { lab: 1, time: '4:30 PM', user: 'Rosario Cruz', status: 'Not checked in', minutesLate: 0 },
-    { lab: 2, time: '5:00 PM', user: 'Luis Garcia', status: 'Not checked in', minutesLate: 40 },
-    { lab: 3, time: '5:30 PM', user: 'Adriana Santos', status: 'Checked in', minutesLate: 0 },
-    { lab: 1, time: '6:00 PM', user: 'Rodrigo Cruz', status: 'Not checked in', minutesLate: 0 },
-    { lab: 2, time: '6:30 PM', user: 'Marisol Reyes', status: 'Checked in', minutesLate: 0 },
-    // Add more sample data rows as needed
-];
-
+    { lab: 1, time: '9:00 AM', seat: 1, user: 'Juan dela Cruz', status: 'Not checked in', minutesLate: 5 },
+  { lab: 2, time: '9:30 AM', seat: 2, user: 'Maria Santos', status: 'Checked in', minutesLate: 0 },
+  { lab: 3, time: '10:00 AM', seat: 3, user: 'Pedro Reyes', status: 'Not checked in', minutesLate: 7 },
+  { lab: 1, time: '10:30 AM', seat: 4, user: 'Sofia Rivera', status: 'Not checked in', minutesLate: 20 },
+  { lab: 2, time: '11:00 AM', seat: 5, user: 'Diego Garcia', status: 'Checked in', minutesLate: 0 },
+  { lab: 3, time: '11:30 AM', seat: 6, user: 'Juan dela Cruz', status: 'Checked in', minutesLate: 0 },
+  { lab: 1, time: '12:00 PM', seat: 7, user: 'Maria Santos', status: 'Not checked in', minutesLate: 10 },
+  { lab: 2, time: '12:30 PM', seat: 8, user: 'Pedro Reyes', status: 'Not checked in', minutesLate: 0 },
+  { lab: 3, time: '1:00 PM', seat: 9, user: 'Sofia Rivera', status: 'Checked in', minutesLate: 0 },
+  { lab: 1, time: '1:30 PM', seat: 10, user: 'Diego Garcia', status: 'Checked in', minutesLate: 0 },
+  { lab: 2, time: '2:00 PM', seat: 1, user: 'Juan dela Cruz', status: 'Checked in', minutesLate: 0 },
+  { lab: 3, time: '2:30 PM', seat: 2, user: 'Maria Santos', status: 'Not checked in', minutesLate: 12 },
+  { lab: 1, time: '3:00 PM', seat: 3, user: 'Pedro Reyes', status: 'Not checked in', minutesLate: 0 },
+  { lab: 2, time: '3:30 PM', seat: 4, user: 'Sofia Rivera', status: 'Checked in', minutesLate: 0 },
+  { lab: 3, time: '4:00 PM', seat: 5, user: 'Diego Garcia', status: 'Not checked in', minutesLate: 0 },
+  { lab: 1, time: '4:30 PM', seat: 6, user: 'Juan dela Cruz', status: 'Not checked in', minutesLate: 0 },
+  { lab: 2, time: '5:00 PM', seat: 7, user: 'Maria Santos', status: 'Not checked in', minutesLate: 40 },
+  { lab: 3, time: '5:30 PM', seat: 8, user: 'Pedro Reyes', status: 'Checked in', minutesLate: 0 },
+  { lab: 1, time: '6:00 PM', seat: 9, user: 'Sofia Rivera', status: 'Not checked in', minutesLate: 0 },
+  { lab: 2, time: '6:30 PM', seat: 10, user: 'Diego Garcia', status: 'Checked in', minutesLate: 0 },
+  ];
 
   // Function to populate reservations table
   function displayReservations() {
@@ -49,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const timeB = convertTo24Hour(b.time);
         return timeA.localeCompare(timeB);
       });
+	} else if (sortBy === 'seat') { 
+	  filteredData.sort((a, b) => a.seat - b.seat);
     } else if (sortBy === 'user') {
       filteredData.sort((a, b) => a.user.localeCompare(b.user));
     }
@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
       row.innerHTML = `
         <td>${reservation.lab}</td>
         <td>${reservation.time}</td>
+        <td>${reservation.seat}</td>
         <td>${reservation.user}</td>
         <td>${reservation.status} (${reservation.minutesLate} minutes late)</td>
         <td>
@@ -94,6 +95,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Event listener for sort select
+  sortSelect.addEventListener('change', function() {
+    displayReservations();
+  });
+  
   sortSelect.addEventListener('change', function() {
     displayReservations();
   });

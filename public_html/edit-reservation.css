@@ -40,15 +40,6 @@ main {
   padding: 20px;
 }
 
-#cancelMessage {
-	margin: 20px;
-	color: maroon;
-}
-
-#cancelAllButton {
-	float: right;
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -66,14 +57,14 @@ table th {
   color: white;
 }
 
-button {
-  background-color: #f44336;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  cursor: pointer;
+table tbody tr:hover {
+  background-color: #f2f2f2;
 }
 
-button:hover {
-  background-color: #d32f2f;
+#editFormContainer {
+  display: none;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: white;
 }
