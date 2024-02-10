@@ -6,20 +6,21 @@
 - 5 users: 3 student and 2 lab technician
 
 User Flow:
-- N - WebApp base (init and vars)
-- N - Log in page + register account
+- N - WebApp base
+- N - Log in page
+- N - Register account
 
 (once they're in - main funcs)
 - J - View all available
 - J - Search (Filter by user, time slot, day, lab)
 - J - See user reservations
+- M - Make a Reservation
 - M - Remove
 - M - Edit
 - M - (If lab technician) Reserve for a student
-- M - Logout
 
-(settings)
+(within User Profile Actions)
 - N - View / Edit own profile
 - N - Delete account
-- N - Logout (connect to js func)
+- N - Logout
 
