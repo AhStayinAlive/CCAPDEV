@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     { lab: 1, time: '9:00 AM', user: 'Juan dela Cruz', status: 'Not checked in', minutesLate: 5 },
     { lab: 2, time: '9:30 AM', user: 'Maria Santos', status: 'Checked in', minutesLate: 0 },
     { lab: 3, time: '10:00 AM', user: 'Pedro Reyes', status: 'Not checked in', minutesLate: 7 },
-    { lab: 1, time: '10:30 AM', user: 'Sofia Rivera', status: 'Not checked in', minutesLate: 0 },
+    { lab: 1, time: '10:30 AM', user: 'Sofia Rivera', status: 'Not checked in', minutesLate: 20 },
     { lab: 2, time: '11:00 AM', user: 'Diego Garcia', status: 'Checked in', minutesLate: 0 },
     { lab: 3, time: '11:30 AM', user: 'Carmela Hernandez', status: 'Checked in', minutesLate: 0 },
     { lab: 1, time: '12:00 PM', user: 'Josefina Lim', status: 'Not checked in', minutesLate: 10 },
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     { lab: 2, time: '3:30 PM', user: 'Carmen Reyes', status: 'Checked in', minutesLate: 0 },
     { lab: 3, time: '4:00 PM', user: 'Emilio Santos', status: 'Not checked in', minutesLate: 0 },
     { lab: 1, time: '4:30 PM', user: 'Rosario Cruz', status: 'Not checked in', minutesLate: 0 },
-    { lab: 2, time: '5:00 PM', user: 'Luis Garcia', status: 'Not checked in', minutesLate: 0 },
+    { lab: 2, time: '5:00 PM', user: 'Luis Garcia', status: 'Not checked in', minutesLate: 40 },
     { lab: 3, time: '5:30 PM', user: 'Adriana Santos', status: 'Checked in', minutesLate: 0 },
     { lab: 1, time: '6:00 PM', user: 'Rodrigo Cruz', status: 'Not checked in', minutesLate: 0 },
     { lab: 2, time: '6:30 PM', user: 'Marisol Reyes', status: 'Checked in', minutesLate: 0 },
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <td>${reservation.user}</td>
         <td>${reservation.status} (${reservation.minutesLate} minutes late)</td>
         <td>
-          ${reservation.status === 'Not checked in' ? 
+          ${reservation.status === 'Not checked in' && reservation.minutesLate >= 10 ? 
             `<button class="cancelButton" data-lab="${reservation.lab}" data-time="${reservation.time}" data-user="${reservation.user}">Cancel Reservation</button>` : ''}
         </td>
       `;
