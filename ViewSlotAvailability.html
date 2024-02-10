@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Slot Availability</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="booking-container">
+    <h2>Space For tatlo to seven people bro @ KRISTEN ANNE TING LIBRARY</h2>
+    
+    <div class="filter-container">
+        <input type="text" id="search-box" placeholder="Search for a time slot or day..." oninput="filterSlots()">
+        <button onclick="clearSearch()">Clear Search</button>
+    </div>
+
+    <div class="date-selector">
+        <button id="prev-date" onclick="changeDate(-1)">&lt; Previous Day</button>
+        <span id="selected-date"></span>
+        <button id="next-date" onclick="changeDate(1)">Next Day &gt;</button>
+    </div>
+    
+    <div id="floors-container">
+    </div>
+</div>
+
+<script>
+    const selectedDateElement = document.getElementById('selected-date');
+    let currentDate = new Date();
+    
+    function filterSlots() {
+        const searchValue = document.getElementById('search-box').value.toLowerCase();
+        const slots = document.getElementsByClassName('slot');
+        for (let slot of slots) {
+            const timeText = slot.querySelector('.time').textContent.toLowerCase();
+            if (timeText.includes(searchValue) || currentDate.toDateString().toLowerCase().includes(searchValue)) {
+                slot.style.display = 'flex';
+            } else {
+                slot.style.display = 'none';
+            }
+        }
+    }
+
+    function clearSearch() {
+        document.getElementById('search-box').value = '';
+        filterSlots(); 
+    }
+    function updateSelectedDate() {
+        selectedDateElement.textContent = currentDate.toDateString();
+        createFloors(5);
+    }
+
+    function changeDate(days) {
+        currentDate.setDate(currentDate.getDate() + days);
+        updateSelectedDate();
+    }
+
+    function createTimeSlots() {
+        const slotsContainer = document.createElement('div');
+        slotsContainer.className = 'slots';
+        for (let hour = 7; hour <= 22; hour++) { 
+            const slot = document.createElement('div');
+            slot.className = 'slot';
+            
+            const time = document.createElement('span');
+            time.className = 'time';
+            time.textContent = `${hour > 12 ? hour - 12 : hour}:00${hour >= 12 ? 'pm' : 'am'}`;
+            
+            const availability = document.createElement('span');
+            availability.className = 'availability available';
+            availability.onmouseover = function() { this.style.backgroundColor = 'red'; };
+            availability.onmouseout = function() { this.style.backgroundColor = 'green'; };
+            
+            slot.appendChild(time);
+            slot.appendChild(availability);
+            slotsContainer.appendChild(slot);
+        }
+        return slotsContainer;
+    }
+    
+    function createFloors(numberOfFloors) {
+        const floorsContainer = document.getElementById('floors-container');
+        floorsContainer.innerHTML = ''; 
+        for (let i = 1; i <= numberOfFloors; i++) {
+            const floor = document.createElement('div');
+            floor.className = 'floor';
+            
+            const floorTitle = document.createElement('h3');
+            floorTitle.textContent = `${i}th Floor Bro Rooms`;
+            
+            floor.appendChild(floorTitle);
+            floor.appendChild(createTimeSlots());
+            floorsContainer.appendChild(floor);
+        }
+    }
+    
+    updateSelectedDate();
+</script>
+
+</body>
+</html>
