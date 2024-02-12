@@ -1,5 +1,3 @@
-const selectedSeats = [];
-
 document.addEventListener('DOMContentLoaded', function() {
     const selectedDateElement = document.querySelector('.selected-date');
     const prevDateButton = document.querySelector('.prev-date');
@@ -77,14 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
         timeSlotsContainer.appendChild(table);
     }
     
-    function proceedWithReservation() {
-		const queryString = selectedSeats.map(seatData => {
-			return `labNumber=${seatData.labNumber}&timeSlot=${seatData.timeSlot}&seatNumber=${seatData.seatNumber}`;
-		}).join('&');
-
-		window.location.href = `make-reservation.html?${queryString}`;
-	}
-    
     function populateLabDropdown() {
         for (let i = 1; i <= 3; i++) {
             const option = document.createElement('option');
@@ -102,45 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
         changeDate(1);
     });
 
-    proceedButton.addEventListener('click', proceedWithReservation);
 
     labDropdown.addEventListener('change', createLabs);
-    
-    timeSlotsContainer.addEventListener('click', function(event) {
-        const clickedCell = event.target;
-        if (clickedCell.classList.contains('seat-slot')) {
-			if (!clickedCell.textContent.trim()) {
-				clickedCell.classList.toggle('selected');
-				const table = clickedCell.closest('table');
-				const labNumber = labDropdown.options[labDropdown.selectedIndex].value;
-				const timeSlot = clickedCell.parentNode.children[0].textContent;
-				const seatNumber = table.querySelector('tr').cells[clickedCell.cellIndex].textContent;
-				const seatData = {
-					seat: clickedCell,
-					labNumber: labNumber,
-					timeSlot: timeSlot,
-					seatNumber: seatNumber
-				};
-				const index = selectedSeats.findIndex(item => item.seat === clickedCell);
-				if (index !== -1) {
-					selectedSeats.splice(index, 1);
-				} else {
-					selectedSeats.push(seatData);
-				}
-				updateSelectedSeats();
-			}
-        }
-    });
-
-    function updateSelectedSeats() {
-        selectedSlotsContainer.innerHTML = "Selected Seats: <br>" + selectedSeats.map(seatData => {
-            return `Lab ${seatData.labNumber}, Time: ${seatData.timeSlot}, ${seatData.seatNumber}`;
-        }).join("<br>");
-		
-		selectedSeats.forEach(seatData => {
-			seatData.seat.style.backgroundColor = '#ECA625';
-		});
-    }
     
     updateSelectedDate();
     createLabs();

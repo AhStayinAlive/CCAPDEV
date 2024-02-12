@@ -12,8 +12,8 @@
 			<ul>
 				<li><a href="index.html">Home</a></li>
 				<li><a href="view-slot-availability.html">View Slot Availability</a></li>
+				<li><a href="make-reservation.html">Make a Reservation</a></li>
 				<li><a href="see-reservations.html">See Reservations</a></li>
-				<li><a href="reserve-for-student.html">Reserve for a Student</a></li>
 				<li><a href="edit-reservation.html">Edit Reservation</a></li>
 				<li><a href="remove-reservation.html">Remove Reservation</a></li>
 				<li><a href="user-profile.html">User Profile Actions</a></li>
@@ -25,34 +25,24 @@
 		</div>
 	</header>
 	
-	<div class="main-container">
-		<div class="booking-container">
-			<h2>View Lab Slot Availabilities</h2>
+	<div class="booking-container">
+		<h2>View Lab Slot Availabilities</h2>
+		
+		<div>
+			<span class="lab-selector">
+				<label for="lab-dropdown">Choose a lab:</label>
+				<select class="lab-dropdown">
+				</select>
+			</span>
 			
-			<div>
-				<span class="lab-selector">
-					<label for="lab-dropdown">Choose a lab:</label>
-					<select class="lab-dropdown">
-					</select>
-				</span>
-				
-				<span class="date-selector">
-					<button class="prev-date" onclick="changeDate(-1)">&lt; Previous Day</button>
-					<span class="selected-date"></span>
-					<button class="next-date" onclick="changeDate(1)">Next Day &gt;</button>
-				</span>
-			</div>
-			
-			<div class="time-slots-container">
-			</div>
+			<span class="date-selector">
+				<button class="prev-date" onclick="changeDate(-1)">&lt; Previous Day</button>
+				<span class="selected-date"></span>
+				<button class="next-date" onclick="changeDate(1)">Next Day &gt;</button>
+			</span>
 		</div>
-
-		<div class="checkout-container">
-			<div class="selected-slots">
-				<h3>Selected Slots:</h3>
-			</div>
-			
-			<button class="proceed-button" onclick="proceedWithReservation()">Proceed with Reservation</button>
+		
+		<div class="time-slots-container">
 		</div>
 	</div>
 	

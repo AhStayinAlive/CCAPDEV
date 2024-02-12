@@ -43,16 +43,8 @@ nav ul li a:hover, nav ul li a:focus {
 .user-info {
 	padding-top: 20px;
 	padding-bottom: 20px;
-}
-
-.main-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.checkout-container {
-    width: 30%;
-	padding: 20px;
+	padding: 15px;
+    font-size: 0.9em;
 }
 
 .selected-slots {
@@ -99,10 +91,6 @@ nav ul li a:hover, nav ul li a:focus {
     transition: transform 0.2s ease;
 }
 
-.slot:hover {
-    transform: scale(1.05);
-}
-
 .table-container {
 	width: 100%;
 	display: flex;
@@ -138,7 +126,6 @@ nav ul li a:hover, nav ul li a:focus {
     margin-right: 10px; 
 }
 
-
 .time-slot-row .available-slots {
     padding-left: 10px; 
 }
@@ -157,28 +144,9 @@ nav ul li a:hover, nav ul li a:focus {
     background-color: #77dd77;
 }
 
-.seat-slot.available:hover {
-    background-color: #ECA625; 
-}
-
-.user-info {
-    padding: 15px;
-    font-size: 0.9em;
-}
-
 .seat-slot.reserved {
     background-color: red;
     color: white;
-}
-
-.seat-slot.available:hover, .seat-slot.reserved:hover {
-    cursor: pointer;
-    opacity: 0.8;
-}
-
-.user-info {
-    padding: 15px;
-    font-size: 0.9em;
 }
 
 .proceed-button {
@@ -212,11 +180,6 @@ nav ul li a:hover, nav ul li a:focus {
 .proceed-button:hover {
     background-color: #45a049;
 }
-
-.reserve-student-button:hover {
-    background-color: #333634;
-}
-
 
 @media (max-width: 768px) {
     .booking-container, .date-selector, .lab h3, .slots, .slot, .time-slots-table {
