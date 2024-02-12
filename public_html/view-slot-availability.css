@@ -2,23 +2,20 @@ html {
 	margin-bottom: 30px;
 }
 
-/* Global styles */
 body {
     font-family: Arial, sans-serif;
-    font-size: 0.8em; /* Reduce base font size for compactness */
+    font-size: 0.8em;
     margin: 0;
     color: #333;
 }
 
-/* Header styles */
 header {
     background-color: #27382A;
     color: white;
-    padding: 10px 0; /* Reduced padding */
+    padding: 10px 0;
     text-align: center;
 }
 
-/* Navigation styles */
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -28,14 +25,14 @@ nav ul {
 
 nav ul li {
     display: inline;
-    margin: 0 5px; /* Reduced margin for a tighter nav */
+    margin: 0 5px;
 }
 
 nav ul li a {
     color: #EBF2EC;
     text-decoration: none;
     transition: color 0.3s ease;
-    padding: 5px 8px; /* Reduced padding for compact links */
+    padding: 5px 8px; 
 }
 
 nav ul li a:hover, nav ul li a:focus {
@@ -48,43 +45,49 @@ nav ul li a:hover, nav ul li a:focus {
 	padding-bottom: 20px;
 }
 
-/* Main content styles */
-.booking-container {
-    width: 65%; /* Adjust width for overall compactness */
-    margin: auto;
-    padding: 10px 0; /* Reduced padding */
+.main-container {
+    display: flex;
+    justify-content: space-between;
 }
 
-/* Date selector styles */
+.checkout-container {
+    width: 30%;
+	padding: 20px;
+}
+
+.booking-container {
+    width: 70%;
+    margin: auto;
+    padding: 20px;
+}
+
 .date-selector {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0; /* Reduced margin */
+    margin: 10px 0;
 }
 
 #selected-date {
 	padding: 10px;
 }
 
-/* Lab section styles */
 .lab h3 {
     background-color: #f2f2f2;
-    padding: 5px; /* Reduced padding */
+    padding: 5px;
     margin: 0;
 }
 
-/* Time slots styles */
 .slots {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust minmax for smaller columns */
-    gap: 5px; /* Reduced gap */
-    padding: 5px; /* Reduced padding */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 5px;
+    padding: 5px; 
 }
 
 .slot {
     border: 1px solid #ddd;
-    padding: 5px; /* Reduced padding */
+    padding: 5px; 
     border-radius: 5px;
     transition: transform 0.2s ease;
 }
@@ -99,19 +102,20 @@ nav ul li a:hover, nav ul li a:focus {
     justify-content: center;
 }
 
-/* Reduced styles for time slots table */
 .time-slots-table {
-    width: 100%; /* Adjusted width for full width */
+    width: 100%; 
     margin: 10px auto;
     border-collapse: collapse;
-    table-layout: fixed; /* Ensure consistent column width */
+    table-layout: fixed; 
 }
 
 .time-slots-table th, .time-slots-table td {
-    padding: 7px; /* Increased padding slightly for better readability */
+    padding: 5px; 
     border: 1px solid #ddd;
     text-align: center;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap; 
+	height: 28px;
+	white-space: normal;
 }
 
 .time-slots-table th {
@@ -119,25 +123,27 @@ nav ul li a:hover, nav ul li a:focus {
 }
 
 .time-label {
-    width: 100px; /* Adjust the width as needed */
-    display: inline-block; /* Ensures the label and available slots are displayed in the same line */
+    width: 100px; 
+    display: inline-block; 
 }
 
-/* Add some margin between the time label and available slots */
 .time-slot-row .time-label {
-    margin-right: 10px; /* Adjust the margin as needed */
+    margin-right: 10px; 
 }
 
-/* Add some padding to the available slots to separate them from the time label */
+
 .time-slot-row .available-slots {
-    padding-left: 10px; /* Adjust the padding as needed */
+    padding-left: 10px; 
 }
 
-/* Availability styles */
+.timeslot.selected {
+    background-color: red;
+}
+
 .availability {
-    width: 15px; /* Reduced width */
-    height: 15px; /* Reduced height */
-    border-radius: 50%; /* Full circle */
+    width: 15px; 
+    height: 15px; 
+    border-radius: 50%; 
 }
 
 .available {
@@ -145,7 +151,7 @@ nav ul li a:hover, nav ul li a:focus {
 }
 
 .seat-slot.available:hover {
-    background-color: #ec2f25; /* Consistent hover effect */
+    background-color: #ECA625; 
 }
 
 .user-info {
@@ -153,7 +159,21 @@ nav ul li a:hover, nav ul li a:focus {
     font-size: 0.9em;
 }
 
-/* Position the buttons below the header */
+.seat-slot.reserved {
+    background-color: red;
+    color: white;
+}
+
+.seat-slot.available:hover, .seat-slot.reserved:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.user-info {
+    padding: 15px;
+    font-size: 0.9em;
+}
+
 .proceed-button {
     display: block;
     margin-top: 20px;
@@ -170,7 +190,7 @@ nav ul li a:hover, nav ul li a:focus {
 
 .reserve-student-button {
     display: block;
-    margin-top: 10px; /* Adjust the margin as needed */
+    margin-top: 10px; 
     margin-right: auto;
     margin-left: auto;
     padding: 10px 20px;
@@ -190,30 +210,30 @@ nav ul li a:hover, nav ul li a:focus {
     background-color: #333634;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .booking-container, .date-selector, .lab h3, .slots, .slot, .time-slots-table {
-        width: 100%; /* Full width for small screens */
+        width: 100%; 
     }
 
     nav ul li {
         display: block;
-        margin: 5px 0; /* Reduced margin for a compact layout */
+        margin: 5px 0; 
     }
 
     .time-slots-table, .time-slots-table th, .time-slots-table td {
-        padding: 3px; /* Even smaller padding */
+        padding: 3px; 
     }
 	
 	.proceed-button {
         position: absolute;
-        top: 100px; /* Adjust the distance from the top as needed */
+        top: 100px; 
         right: 20px;
     }
 
     .reserve-student-button {
         position: absolute;
-        top: 150px; /* Adjust the distance from the top as needed */
+        top: 150px; 
         right: 20px;
     }
 }
