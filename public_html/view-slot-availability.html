@@ -20,8 +20,8 @@
 			</ul>
 		</nav>
 		<div class="user-info">
-			<span>Currently Logged in As: <strong><span id="loggedInUser">Pierre Ramos</span></strong></span><br>
-			<span>Account Type: <strong><span id="accountType">Lab Technician</span></strong></span>
+			<span>Currently Logged in As: <strong><span class="loggedInUser">Pierre Ramos</span></strong></span><br>
+			<span>Account Type: <strong><span class="accountType">Lab Technician</span></strong></span>
 		</div>
 	</header>
 	
@@ -32,23 +32,24 @@
 			<div>
 				<span class="lab-selector">
 					<label for="lab-dropdown">Choose a lab:</label>
-					<select id="lab-dropdown">
+					<select class="lab-dropdown">
 					</select>
 				</span>
 				
 				<span class="date-selector">
-					<button id="prev-date" onclick="changeDate(-1)">&lt; Previous Day</button>
-					<span id="selected-date"></span>
-					<button id="next-date" onclick="changeDate(1)">Next Day &gt;</button>
+					<button class="prev-date" onclick="changeDate(-1)">&lt; Previous Day</button>
+					<span class="selected-date"></span>
+					<button class="next-date" onclick="changeDate(1)">Next Day &gt;</button>
 				</span>
 			</div>
 			
-			<div id="time-slots-container">
+			<div class="time-slots-container">
 			</div>
 		</div>
 
 		<div class="checkout-container">
 			<div class="selected-slots">
+				<h3>Selected Slots:</h3>
 			</div>
 			
 			<button class="proceed-button" onclick="proceedWithReservation()">Proceed with Reservation</button>
