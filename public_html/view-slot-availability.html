@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Lab Slot Availability</title>
+	<link rel="stylesheet" href="view-slot-availability.css">
+</head>
+
+<body>
+	<header>
+		<h1>DLSU Lab Reservation System</h1>
+		<nav>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="view-slot-availability.html">View Slot Availability</a></li>
+				<li><a href="see-reservations.html">See Reservations</a></li>
+				<li><a href="reserve-for-student.html">Reserve for a Student</a></li>
+				<li><a href="edit-reservation.html">Edit Reservation</a></li>
+				<li><a href="remove-reservation.html">Remove Reservation</a></li>
+				<li><a href="user-profile.html">User Profile Actions</a></li>
+			</ul>
+		</nav>
+		<div class="user-info">
+			<span>Currently Logged in As: <strong><span class="loggedInUser">Pierre Ramos</span></strong></span><br>
+			<span>Account Type: <strong><span class="accountType">Lab Technician</span></strong></span>
+		</div>
+	</header>
+	
+	<div class="main-container">
+		<div class="booking-container">
+			<h2>View Lab Slot Availabilities</h2>
+			
+			<div>
+				<span class="lab-selector">
+					<label for="lab-dropdown">Choose a lab:</label>
+					<select class="lab-dropdown">
+					</select>
+				</span>
+				
+				<span class="date-selector">
+					<button class="prev-date" onclick="changeDate(-1)">&lt; Previous Day</button>
+					<span class="selected-date"></span>
+					<button class="next-date" onclick="changeDate(1)">Next Day &gt;</button>
+				</span>
+			</div>
+			
+			<div class="time-slots-container">
+			</div>
+		</div>
+
+		<div class="checkout-container">
+			<div class="selected-slots">
+				<h3>Selected Slots:</h3>
+			</div>
+			
+			<button class="proceed-button" onclick="proceedWithReservation()">Proceed with Reservation</button>
+		</div>
+	</div>
+	
+	<script src="view-slot-availability.js"></script>
+</body>
+</html>
