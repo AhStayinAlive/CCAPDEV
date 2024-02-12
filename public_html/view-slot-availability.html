@@ -23,41 +23,29 @@
         <span>Currently Logged in As: <strong><span id="loggedInUser">Pierre Ramos</span></strong></span><br>
         <span>Account Type: <strong><span id="accountType">Lab Technician</span></strong></span>
     </div>
-  </header>
+</header>
 <div class="booking-container">
     <h2>View Lab Slot Availabilities</h2>
     
-    <div class="filter-container">
-        <input type="text" id="search-box" placeholder="Search for a time slot or day..." oninput="filterSlots()">
-        <button onclick="clearSearch()">Clear Search</button>
+    <div class="lab-selector">
+        <label for="lab-dropdown">Choose a lab:</label>
+        <select id="lab-dropdown">
+        </select>
     </div>
-
+    
     <div class="date-selector">
         <button id="prev-date" onclick="changeDate(-1)">&lt; Previous Day</button>
         <span id="selected-date"></span>
         <button id="next-date" onclick="changeDate(1)">Next Day &gt;</button>
     </div>
     
-    <div id="labs-container">
+    <div id="time-slots-container">
     </div>
 </div>
 
 <script>
     const selectedDateElement = document.getElementById('selected-date');
     let currentDate = new Date();
-    
-    function filterSlots() {
-        const searchValue = document.getElementById('search-box').value.toLowerCase();
-        const slots = document.getElementsByClassName('slot');
-        for (let slot of slots) {
-            const timeText = slot.querySelector('.time').textContent.toLowerCase();
-            if (timeText.includes(searchValue) || currentDate.toDateString().toLowerCase().includes(searchValue)) {
-                slot.style.display = 'flex';
-            } else {
-                slot.style.display = 'none';
-            }
-        }
-    }
 
     function clearSearch() {
         document.getElementById('search-box').value = '';
@@ -73,46 +61,93 @@
         updateSelectedDate();
     }
 
-    function createTimeSlots() {
+    function createTimeSlots(labNumber) {
         const slotsContainer = document.createElement('div');
         slotsContainer.className = 'slots';
-        for (let hour = 7; hour <= 22; hour++) { 
-            const slot = document.createElement('div');
-            slot.className = 'slot';
-            
-            const time = document.createElement('span');
-            time.className = 'time';
-            time.textContent = `${hour > 12 ? hour - 12 : hour}:00${hour >= 12 ? 'pm' : 'am'}`;
-            
-            const availability = document.createElement('span');
-            availability.className = 'availability available';
-            availability.onmouseover = function() { this.style.backgroundColor = 'red'; };
-            availability.onmouseout = function() { this.style.backgroundColor = 'green'; };
-            
-            slot.appendChild(time);
-            slot.appendChild(availability);
-            slotsContainer.appendChild(slot);
+        for (let hour = 9; hour <= 17; hour++) {
+            for (let mins = 0; mins < 60; mins += 30) {
+                const timeSlotRow = document.createElement('div');
+                timeSlotRow.className = 'time-slot-row';
+
+                const timeLabel = document.createElement('span');
+                timeLabel.className = 'time-label';
+                timeLabel.textContent = `${hour}:${mins === 0 ? '00' : mins} ${hour >= 12 ? 'PM' : 'AM'}`;
+
+                timeSlotRow.appendChild(timeLabel);
+
+                for (let seat = 1; seat <= 10; seat++) {
+                    const seatDiv = document.createElement('div');
+                    seatDiv.className = 'seat available';
+                    seatDiv.textContent = seat; // Display seat number
+                    seatDiv.onmouseover = function() { this.className = 'seat hover'; };
+                    seatDiv.onmouseout = function() { this.className = 'seat available'; };
+                    timeSlotRow.appendChild(seatDiv);
+                }
+
+                slotsContainer.appendChild(timeSlotRow);
+            }
         }
         return slotsContainer;
     }
     
-    function createLabs(numberOfLabs) {
-        const labsContainer = document.getElementById('labs-container');
-        labsContainer.innerHTML = ''; 
-        for (let i = 1; i <= numberOfLabs; i++) {
-            const lab = document.createElement('div');
-            lab.className = 'lab';
-            
-            const labTitle = document.createElement('h3');
-            labTitle.textContent = `Lab ${i}`;
-            
-            lab.appendChild(labTitle);
-            lab.appendChild(createTimeSlots());
-            labsContainer.appendChild(lab);
+    function createLabs() {
+		const numberOfSeats = 10; 
+		const timeSlotsContainer = document.getElementById('time-slots-container');
+		timeSlotsContainer.innerHTML = ''; 
+
+		const table = document.createElement('table');
+		table.className = 'time-slots-table';
+
+		const headerRow = document.createElement('tr');
+		const timeHeader = document.createElement('th');
+		timeHeader.textContent = 'Time';
+		headerRow.appendChild(timeHeader);
+
+		for (let i = 1; i <= numberOfSeats; i++) {
+			const seatHeader = document.createElement('th');
+			seatHeader.textContent = `Seat ${i}`;
+			headerRow.appendChild(seatHeader);
+		}
+		table.appendChild(headerRow);
+
+		for (let hour = 9; hour <= 17; hour++) {
+			for (let mins = 0; mins < 60; mins += 30) {
+				const row = document.createElement('tr');
+				const timeSlot = document.createElement('td');
+				timeSlot.textContent = `${hour % 12 === 0 ? 12 : hour % 12}:${mins === 0 ? '00' : mins}${hour >= 12 ? ' PM' : ' AM'}`;
+				row.appendChild(timeSlot);
+
+				for (let j = 1; j <= numberOfSeats; j++) {
+					const seatSlot = document.createElement('td');
+					seatSlot.className = 'seat-slot available';
+					seatSlot.addEventListener('click', function() {
+						// Redirect to make-reservation.html
+						window.location.href = 'make-reservation.html';
+					});
+					row.appendChild(seatSlot);
+				}
+				table.appendChild(row);
+			}
+		}
+
+		timeSlotsContainer.appendChild(table);
+	}
+
+    function populateLabDropdown() {
+        const select = document.getElementById('lab-dropdown');
+        for (let i = 1; i <= 3; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `Lab ${i}`;
+            select.appendChild(option);
         }
     }
-    
+
+    document.getElementById('lab-dropdown').addEventListener('change', createLabs);
+
+    populateLabDropdown();
     updateSelectedDate();
+    createLabs(1); // Initialize the page with the first lab's time slots
 </script>
 
 </body>
