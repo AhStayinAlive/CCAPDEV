@@ -1,21 +1,9 @@
-/* don't mind this code! (megan)
-
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-
-for (const [key, value] of urlParams.entries()) {
-    const [labNumber, timeSlot, seatNumber] = value.split('&');
-    selectedSeats.push({
-        labNumber: labNumber,
-        timeSlot: timeSlot,
-        seatNumber: seatNumber
-    });
-}
-
-console.log("Selected Seats:", selectedSeats); 
-*/
-
 const selectedSeats = [];
+const reservedSeats = [
+    { labNumber: '1', timeSlot: '10:00 AM', seatNumber: 'Seat 3', name: 'Sofia Rivera', profile: '#profileUserA' },
+    { labNumber: '1', timeSlot: '10:30 AM', seatNumber: 'Seat 2', name: 'Diego Garcia', profile: '#profileUserB' },
+    { labNumber: '1', timeSlot: '2:00 PM', seatNumber: 'Seat 3', name: 'Anon.', profile: '#profileUserC' }
+];
 
 document.addEventListener('DOMContentLoaded', function() {
     const selectedDateElement = document.querySelector('.selected-date');
@@ -25,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const proceedButton = document.querySelector('.proceed-button');
     const labDropdown = document.querySelector('.lab-dropdown');
     const selectedSlotsContainer = document.querySelector('.selected-slots');
+	const usernameInput = document.querySelector('.name');
 
     let currentDate = new Date();
 
@@ -57,49 +46,66 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         table.appendChild(headerRow);
 
-        const reservedSeats = {
-            10: [[0, 3, 'Sofia Rivera', '#profileUserA'], [30, 5, 'Diego Garcia', '#profileUserB']],
-            14: [[0, 2, 'Anon.', '#profileUserC']],
-        };
-
         for (let hour = 9; hour <= 17; hour++) {
-            for (let mins = 0; mins < 60; mins += 30) {
-                const row = document.createElement('tr');
-                const timeSlot = document.createElement('td');
-                timeSlot.textContent = `${hour % 12 === 0 ? 12 : hour % 12}:${mins === 0 ? '00' : mins}${hour >= 12 ? ' PM' : ' AM'}`;
-                row.appendChild(timeSlot);
+			for (let mins = 0; mins < 60; mins += 30) {
+				const row = document.createElement('tr');
+				const timeSlot = document.createElement('td');
+				timeSlot.textContent = `${hour % 12 === 0 ? 12 : hour % 12}:${mins === 0 ? '00' : mins}${hour >= 12 ? ' PM' : ' AM'}`;
+				row.appendChild(timeSlot);
 
-                for (let j = 1; j <= numberOfSeats; j++) {
-                    const seatSlot = document.createElement('td');
-                    seatSlot.className = 'seat-slot available';
+				for (let j = 1; j <= numberOfSeats; j++) {
+					const seatSlot = document.createElement('td');
+					seatSlot.className = 'seat-slot available';
 
-                    if (reservedSeats[hour] && reservedSeats[hour].some(reservation => reservation[0] === mins && reservation[1] === j)) {
-                        const reservation = reservedSeats[hour].find(reservation => reservation[0] === mins && reservation[1] === j);
-                        seatSlot.className = 'seat-slot reserved';
-                        const userLink = document.createElement('a');
-                        userLink.href = reservation[3]; 
-                        userLink.textContent = reservation[2]; 
-                        userLink.title = reservation[2]; 
-                        userLink.style.color = 'white'; 
-                        userLink.style.textDecoration = 'none'; 
-                        seatSlot.innerHTML = '';
-                        seatSlot.appendChild(userLink); 
-                    }
-                    row.appendChild(seatSlot);
-                }
-                table.appendChild(row);
-            }
-        }
-
+					const reservedSeat = reservedSeats.find(seat => seat.labNumber === hour && seat.timeSlot === mins && seat.seatNumber === j);
+					if (reservedSeat) {
+						seatSlot.className = 'seat-slot reserved';
+						const userLink = document.createElement('a');
+						userLink.href = reservedSeat.profile; 
+						userLink.textContent = reservedSeat.name; 
+						userLink.title = reservedSeat.name; 
+						userLink.style.color = 'white'; 
+						userLink.style.textDecoration = 'none'; 
+						seatSlot.innerHTML = '';
+						seatSlot.appendChild(userLink); 
+					}
+					row.appendChild(seatSlot);
+				}
+				table.appendChild(row);
+			}
+		}
         timeSlotsContainer.appendChild(table);
     }
     
     function proceedWithReservation() {
-		const queryString = selectedSeats.map(seatData => {
-			return `labNumber=${seatData.labNumber}&timeSlot=${seatData.timeSlot}&seatNumber=${seatData.seatNumber}`;
-		}).join('&');
+		const name = usernameInput.value;
 
-		window.location.href = `make-reservation.html?${queryString}`;
+		selectedSeats.forEach(seat => {
+			seat.name = name;
+			seat.profile = '#profileUserA';
+			
+			const seatRowIndex = parseInt(seat.seatNumber.split(' ')[1]);
+			let timeColumnIndex = -1;
+			const seatTimeSlot = seat.timeSlot;
+			const rows = document.querySelectorAll('.time-slots-container tr');
+
+			rows.forEach((row, rowIndex) => {
+				const timeCell = row.querySelector('td:first-child');
+				if (timeCell && timeCell.textContent.trim() === seatTimeSlot) {
+					timeColumnIndex = rowIndex;
+				}
+			});
+	
+			const table = document.querySelector('.time-slots-container table');
+			const row = table.rows[seatRowIndex];
+			const cell = row.cells[timeColumnIndex];
+		});
+		
+		selectedSlotsContainer.innerHTML = "<h3>Selected Slots:</h3>";
+		usernameInput.value = "";
+		reservedSeats.push(...selectedSeats);
+		selectedSeats.length = 0;
+		createLabs();
 	}
     
     function populateLabDropdown() {
@@ -132,30 +138,59 @@ document.addEventListener('DOMContentLoaded', function() {
 				const labNumber = labDropdown.options[labDropdown.selectedIndex].value;
 				const timeSlot = clickedCell.parentNode.children[0].textContent;
 				const seatNumber = table.querySelector('tr').cells[clickedCell.cellIndex].textContent;
+				const seat = clickedCell;
 				const seatData = {
-					seat: clickedCell,
 					labNumber: labNumber,
 					timeSlot: timeSlot,
-					seatNumber: seatNumber
+					seatNumber: seatNumber,
+					name: '',
+					profile: ''
 				};
-				const index = selectedSeats.findIndex(item => item.seat === clickedCell);
-				if (index !== -1) {
-					selectedSeats.splice(index, 1);
+				
+				let isReserved = reservedSeats.some(seat => {
+					return seat.labNumber === parseInt(labNumber) && 
+						   seat.timeSlot === parseInt(timeSlot) && 
+						   seat.seatNumber === parseInt(seatNumber);
+				});
+
+				if (isReserved) {
+					alert('This seat is already reserved.');
 				} else {
-					selectedSeats.push(seatData);
+					const selectedIndex = selectedSeats.findIndex(item => item.seat === clickedCell);
+					if (selectedIndex !== -1) {
+						selectedSeats.splice(selectedIndex, 1);
+					} else {
+						selectedSeats.push(seatData);
+					}
+					updateSelectedSeats();
 				}
-				updateSelectedSeats();
 			}
-        }
-    });
+		}
+	});
 
     function updateSelectedSeats() {
         selectedSlotsContainer.innerHTML = "Selected Seats: <br>" + selectedSeats.map(seatData => {
             return `Lab ${seatData.labNumber}, Time: ${seatData.timeSlot}, ${seatData.seatNumber}`;
         }).join("<br>");
 		
-		selectedSeats.forEach(seatData => {
-			seatData.seat.style.backgroundColor = '#ECA625';
+		selectedSeats.forEach(seat => {
+			const seatRowIndex = parseInt(seat.seatNumber.split(' ')[1]);
+			let timeColumnIndex = -1;
+			const seatTimeSlot = seat.timeSlot;
+			const rows = document.querySelectorAll('.time-slots-container tr');
+
+			rows.forEach((row, rowIndex) => {
+				const timeCell = row.querySelector('td:first-child');
+				if (timeCell && timeCell.textContent.trim() === seatTimeSlot) {
+					timeColumnIndex = rowIndex;
+				}
+			});
+	
+			const table = document.querySelector('.time-slots-container table');
+			const row = table.rows[seatRowIndex];
+			const cell = row.cells[timeColumnIndex];
+			
+			cell.style.backgroundColor = '#ECA625';
 		});
     }
     

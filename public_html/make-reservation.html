@@ -3,6 +3,7 @@
 <head>
 	<title>Lab Slot Availability</title>
 	<link rel="stylesheet" href="make-reservation.css">
+	<script src="jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -28,8 +29,10 @@
 	<div class="main-container">
 		<div class="booking-container">
 			<h2>View Lab Slot Availabilities</h2>
+			<span class="system-status">You are a <strong>Lab Technician</strong> reserving for <strong>a student</strong>.</span>
 			
 			<div>
+				<br>
 				<span class="lab-selector">
 					<label for="lab-dropdown">Choose a lab:</label>
 					<select class="lab-dropdown">
@@ -51,8 +54,10 @@
 			<div class="selected-slots">
 				<h3>Selected Slots:</h3>
 			</div>
-			
-			<button class="proceed-button" onclick="proceedWithReservation()">Proceed with Reservation</button>
+			<div class="username-form">
+				<label for="name">Input Student Name:</label>
+				<input type="text" class="name" name="name"></div>
+			<button class="proceed-button">Submit Reservation</button>
 		</div>
 	</div>
 	
