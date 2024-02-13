@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
         timeSlotsContainer.appendChild(table);
+		updateReservedSeats();
     }
     
     function proceedWithReservation() {
@@ -83,22 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		selectedSeats.forEach(seat => {
 			seat.name = name;
 			seat.profile = '#profileUserA';
-			
-			const seatRowIndex = parseInt(seat.seatNumber.split(' ')[1]);
-			let timeColumnIndex = -1;
-			const seatTimeSlot = seat.timeSlot;
-			const rows = document.querySelectorAll('.time-slots-container tr');
-
-			rows.forEach((row, rowIndex) => {
-				const timeCell = row.querySelector('td:first-child');
-				if (timeCell && timeCell.textContent.trim() === seatTimeSlot) {
-					timeColumnIndex = rowIndex;
-				}
-			});
-	
-			const table = document.querySelector('.time-slots-container table');
-			const row = table.rows[seatRowIndex];
-			const cell = row.cells[timeColumnIndex];
 		});
 		
 		selectedSlotsContainer.innerHTML = "<h3>Selected Slots:</h3>";
@@ -187,12 +172,40 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 	
 			const table = document.querySelector('.time-slots-container table');
-			const row = table.rows[seatRowIndex];
-			const cell = row.cells[timeColumnIndex];
+			const row = table.rows[timeColumnIndex];
+			const cell = row.cells[seatRowIndex];
 			
 			cell.style.backgroundColor = '#ECA625';
 		});
     }
+	
+	function updateReservedSeats() {
+		reservedSeats.forEach(seat => {
+			const seatRowIndex = parseInt(seat.seatNumber.split(' ')[1]);
+			let timeColumnIndex = -1;
+			const seatTimeSlot = seat.timeSlot;
+			const rows = document.querySelectorAll('.time-slots-container tr');
+
+			rows.forEach((row, rowIndex) => {
+				const timeCell = row.querySelector('td:first-child');
+				if (timeCell && timeCell.textContent.trim() === seatTimeSlot) {
+					timeColumnIndex = rowIndex;
+				}
+			});
+	
+			const table = document.querySelector('.time-slots-container table');
+			const row = table.rows[timeColumnIndex];
+			const cell = row.cells[seatRowIndex];
+			
+			cell.textContent = seat.name;
+			cell.style.color = 'white';
+			cell.style.backgroundColor = '#ED2B2B';
+			
+			cell.addEventListener('click', function() {
+				window.location.href = seat.profile;
+			});
+		});
+	}
     
     updateSelectedDate();
     createLabs();

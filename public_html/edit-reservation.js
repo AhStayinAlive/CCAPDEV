@@ -59,13 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const editForm = `
       <form id="editForm">
         <label for="editLab">Lab:</label>
-        <input type="text" id="editLab" name="editLab" value="${reservation.lab}" disabled><br><br>
+        <input type="text" id="editLab" name="editLab" value="${reservation.lab}"><br><br>
         <label for="editTime">Time Slot:</label>
-        <input type="text" id="editTime" name="editTime" value="${reservation.time}" disabled><br><br>
+        <input type="text" id="editTime" name="editTime" value="${reservation.time}"><br><br>
         <label for="editSeat">Seat No.:</label>
         <input type="text" id="editSeat" name="editSeat" value="${reservation.seat}"><br><br>
         <label for="editUser">User:</label>
-        <input type="text" id="editUser" name="editUser" value="${reservation.user}" disabled><br><br>
+        <input type="text" id="editUser" name="editUser" value="${reservation.user}"><br><br>
         <button type="submit">Save</button>
       </form>
     `;
