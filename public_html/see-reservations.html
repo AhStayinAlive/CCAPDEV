@@ -26,8 +26,39 @@
     </div>
   </header>
   <main>
-    
+    <h2>View Reservations</h2>
+    <div id="filterControls">
+        <label for="labFilter">Filter by Lab:</label>
+        <select id="labFilter">
+            <option value="0">All Labs</option>
+            <option value="1">Lab 1</option>
+            <option value="2">Lab 2</option>
+            <option value="3">Lab 3</option>
+        </select>
+        <label for="sortSelect">Sort By:</label>
+        <select id="sortSelect">
+            <option value="time">Time</option>
+            <option value="user">User</option>
+            <option value="seat">Seat</option>
+        </select>
+    </div>
+    <table id="reservationsTable">
+      <thead>
+        <tr>
+          <th>Lab</th>
+          <th>Time Slot</th>
+          <th>Seat No.</th>
+          <th>User</th>
+          <th>Reservation Status</th>
+          <th>Date/Time of Request</th>
+          <th>Date/Time of Reservation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Reservation data will be populated dynamically here -->
+      </tbody>
+    </table>
   </main>
-  <script src="edit-reservation.js"></script>
+  <script src="see-reservations.js"></script>
 </body>
 </html>

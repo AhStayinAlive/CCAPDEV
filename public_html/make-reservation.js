@@ -14,17 +14,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const labDropdown = document.querySelector('.lab-dropdown');
     const selectedSlotsContainer = document.querySelector('.selected-slots');
 	const usernameInput = document.querySelector('.name');
+	const calendarContainer = document.querySelector('.calendar-container');
+
 
     let currentDate = new Date();
+
+	proceedButton.addEventListener('click', proceedWithReservation);
+
+    labDropdown.addEventListener('change', createLabs);
 
     function updateSelectedDate() {
         selectedDateElement.textContent = currentDate.toDateString();
     }
 
-    function changeDate(days) {
-        currentDate.setDate(currentDate.getDate() + days);
-        updateSelectedDate();
-        createLabs();
+	function generateWeekCalendar() {
+        calendarContainer.innerHTML = '';
+    
+        let startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
+        
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(startOfWeek);
+            date.setDate(startOfWeek.getDate() + i);
+    
+            const dateButton = document.createElement('button');
+            dateButton.classList.add('date-button', 'calendar-day');
+            dateButton.textContent = date.toDateString();
+            dateButton.value = date.toISOString().split('T')[0];
+    
+            dateButton.addEventListener('click', function() {
+                currentDate = new Date(this.value);
+                updateSelectedDate();
+                createLabs(); 
+            });
+    
+            calendarContainer.appendChild(dateButton);
+        }
     }
     
     function createLabs() {
@@ -101,18 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
             labDropdown.appendChild(option);
         }
     }
-    
-    prevDateButton.addEventListener('click', function() {
-        changeDate(-1);
-    });
-
-    nextDateButton.addEventListener('click', function() {
-        changeDate(1);
-    });
-
-    proceedButton.addEventListener('click', proceedWithReservation);
-
-    labDropdown.addEventListener('change', createLabs);
     
     timeSlotsContainer.addEventListener('click', function(event) {
         const clickedCell = event.target;
@@ -210,4 +223,5 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSelectedDate();
     createLabs();
     populateLabDropdown();
+	generateWeekCalendar();
 });

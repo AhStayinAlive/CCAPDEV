@@ -6,17 +6,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const proceedButton = document.querySelector('.proceed-button');
     const labDropdown = document.querySelector('.lab-dropdown');
     const selectedSlotsContainer = document.querySelector('.selected-slots');
+    const calendarContainer = document.querySelector('.calendar-container');
 
     let currentDate = new Date();
 
     function updateSelectedDate() {
         selectedDateElement.textContent = currentDate.toDateString();
-    }
-
-    function changeDate(days) {
-        currentDate.setDate(currentDate.getDate() + days);
-        updateSelectedDate();
-        createLabs();
     }
     
     function createLabs() {
@@ -84,18 +79,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    prevDateButton.addEventListener('click', function() {
-        changeDate(-1);
-    });
-
-    nextDateButton.addEventListener('click', function() {
-        changeDate(1);
-    });
-
-
+    function generateWeekCalendar() {
+        calendarContainer.innerHTML = '';
+    
+        let startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
+        
+        for (let i = 0; i < 7; i++) {
+            const date = new Date(startOfWeek);
+            date.setDate(startOfWeek.getDate() + i);
+    
+            const dateButton = document.createElement('button');
+            dateButton.classList.add('date-button', 'calendar-day');
+            dateButton.textContent = date.toDateString();
+            dateButton.value = date.toISOString().split('T')[0];
+    
+            dateButton.addEventListener('click', function() {
+                currentDate = new Date(this.value);
+                updateSelectedDate();
+                createLabs(); 
+            });
+    
+            calendarContainer.appendChild(dateButton);
+        }
+    }
+    
     labDropdown.addEventListener('change', createLabs);
     
     updateSelectedDate();
     createLabs();
     populateLabDropdown();
+    generateWeekCalendar();
 });

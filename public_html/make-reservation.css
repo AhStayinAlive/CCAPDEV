@@ -176,6 +176,36 @@ nav ul li a:hover, nav ul li a:focus {
     opacity: 0.8;
 }
 
+.calendar-container {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .calendar-container .date-button {
+    background-color: #f2f2f2;
+    border: 1px solid #dcdcdc;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .calendar-container .date-button:hover {
+    background-color: #e7e7e7;
+  }
+  
+  .calendar-container .date-button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  .selected-date {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
 .proceed-button {
     display: block;
     margin-top: 20px;

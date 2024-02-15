@@ -31,15 +31,13 @@
 		<div>
 			<span class="lab-selector">
 				<label for="lab-dropdown">Choose a lab:</label>
-				<select class="lab-dropdown">
+				<select class="lab-dropdown" id="lab-dropdown">
 				</select>
 			</span>
 			
-			<span class="date-selector">
-				<button class="prev-date" onclick="changeDate(-1)">&lt; Previous Day</button>
-				<span class="selected-date"></span>
-				<button class="next-date" onclick="changeDate(1)">Next Day &gt;</button>
-			</span>
+			<div class="selected-date"></div>
+			
+			<div class="calendar-container"></div>
 		</div>
 		
 		<div class="time-slots-container">
