@@ -2,12 +2,16 @@ body, html {
     height: 100%;
     margin: 0;
     font-family: 'Arial', sans-serif;
-}
+    background-color: #f4f4f4;
+    background-image: url('dlsu_bg.png');
+    background-size: cover;
+    background-position: center center; 
+    background-attachment: fixed;
 
 .system-title {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 0.5rem; /* Space between the title and the login heading */
+    font-size: 2rem;
+    color: #27382A;
+    margin-bottom: 2rem;
     text-align: center;
 }
 
@@ -22,49 +26,37 @@ body, html {
     background: white;
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 350px;
 }
 
 .form-group {
-    margin-bottom: 1rem;
-    position: relative;
+    margin-bottom: 1.5rem;
 }
 
 .form-control {
-    border: none;
-    border-bottom: 2px solid #ccc;
-    border-radius: 0; /* Flat style */
+    border: 2px solid #ccc;
+    border-radius: 5px;
     margin-bottom: 1rem;
     box-shadow: none;
+    padding: 0.5rem;
+    font-size: 1rem;
 }
 
 .form-control:focus {
-    border-color: #667eea;
-}
-
-.show-password {
-    position: absolute;
-    right: 10px;
-    top: 50%; /* Center vertically in the input */
-    transform: translateY(-50%); /* Center vertically in the input */
-    padding: 0;
-    background: none;
-    border: none;
-    color: #667eea;
-    cursor: pointer;
-    text-decoration: underline;
+    border-color: #27382A;
+    outline: none;
 }
 
 .action-links {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 .action-links a {
-    color: #667eea;
+    color: #27382A;
     text-decoration: none;
 }
 
@@ -75,14 +67,13 @@ body, html {
 .btn {
     width: 100%;
     padding: 0.75rem;
-    border-radius: 20px; /* Rounded button edges */
+    border-radius: 20px;
     border: none;
-    margin-top: 0.5rem;
     cursor: pointer;
 }
 
 .login-btn {
-    background-color: #667eea;
+    background-color: #27382A;
     color: white;
 }
 
@@ -90,4 +81,5 @@ body, html {
     .login-card {
         margin: 1rem;
     }
+}
 }
