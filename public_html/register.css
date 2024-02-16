@@ -7,6 +7,7 @@ body, html {
     background-size: cover;
     background-position: center center; 
     background-attachment: fixed;
+}
 
 .system-title {
     font-size: 2rem; 
@@ -62,6 +63,21 @@ body, html {
     font-size: 0.9rem;
 }
 
+.account-selection legend {
+	font-size: 1rem;
+	text-align: center;
+}
+
+.account-selection input {
+  margin: 0.5rem;
+  margin-left: 1rem;
+}
+
+.account-selection {
+	border: 2px solid #ccc;
+	border-radius: 5px;
+}
+
 .action-links a {
     color: #27382A;
     text-decoration: none;
@@ -88,5 +104,4 @@ body, html {
     .register-card {
         margin: 1rem;
     }
-}
 }
