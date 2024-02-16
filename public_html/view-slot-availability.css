@@ -65,9 +65,7 @@ nav ul li a:hover, nav ul li a:focus {
 
 .date-selector {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .selected-date {
@@ -107,6 +105,26 @@ nav ul li a:hover, nav ul li a:focus {
     margin: 10px auto;
     border-collapse: collapse;
     table-layout: fixed; 
+}
+.search-interface .input-group {
+    display
+    : flex;
+    justify-content: start;
+    align-items: center;
+    gap: 20px; 
+}
+
+.search-interface .input-group > div {
+    flex: 1; 
+}
+
+.search-interface label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.search-button-container {
+    margin-top: 20px; 
 }
 
 .time-slots-table th, .time-slots-table td {

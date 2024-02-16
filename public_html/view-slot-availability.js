@@ -1,20 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const selectedDateElement = document.querySelector('.selected-date');
-    const prevDateButton = document.querySelector('.prev-date');
-    const nextDateButton = document.querySelector('.next-date');
     const timeSlotsContainer = document.querySelector('.time-slots-container');
-    const proceedButton = document.querySelector('.proceed-button');
     const labDropdown = document.querySelector('.lab-dropdown');
-    const selectedSlotsContainer = document.querySelector('.selected-slots');
-    const calendarContainer = document.querySelector('.calendar-container');
+    const searchTimeInput = document.querySelector('.search-time');
+    const searchButton = document.querySelector('.search-button');
 
-    let currentDate = new Date();
-
-    function updateSelectedDate() {
-        selectedDateElement.textContent = currentDate.toDateString();
-    }
-    
-    function createLabs() {
+    function createLabs(searchDate = null, searchTime = null, searchLab = null) {
         const numberOfSeats = 10; 
         timeSlotsContainer.innerHTML = '';
 
@@ -40,36 +30,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
         for (let hour = 9; hour <= 17; hour++) {
             for (let mins = 0; mins < 60; mins += 30) {
-                const row = document.createElement('tr');
-                const timeSlot = document.createElement('td');
-                timeSlot.textContent = `${hour % 12 === 0 ? 12 : hour % 12}:${mins === 0 ? '00' : mins}${hour >= 12 ? ' PM' : ' AM'}`;
-                row.appendChild(timeSlot);
+                const time = `${hour % 12 === 0 ? 12 : hour % 12}:${mins === 0 ? '00' : mins}${hour >= 12 ? ' PM' : ' AM'}`;
+                if (!searchTime || time === searchTime) {
+                    const row = document.createElement('tr');
+                    const timeSlot = document.createElement('td');
+                    timeSlot.textContent = time;
+                    row.appendChild(timeSlot);
 
-                for (let j = 1; j <= numberOfSeats; j++) {
-                    const seatSlot = document.createElement('td');
-                    seatSlot.className = 'seat-slot available';
+                    for (let j = 1; j <= numberOfSeats; j++) {
+                        const seatSlot = document.createElement('td');
+                        seatSlot.className = 'seat-slot available';
 
-                    if (reservedSeats[hour] && reservedSeats[hour].some(reservation => reservation[0] === mins && reservation[1] === j)) {
-                        const reservation = reservedSeats[hour].find(reservation => reservation[0] === mins && reservation[1] === j);
-                        seatSlot.className = 'seat-slot reserved';
-                        const userLink = document.createElement('a');
-                        userLink.href = reservation[3]; 
-                        userLink.textContent = reservation[2]; 
-                        userLink.title = reservation[2]; 
-                        userLink.style.color = 'white'; 
-                        userLink.style.textDecoration = 'none'; 
-                        seatSlot.innerHTML = '';
-                        seatSlot.appendChild(userLink); 
+                        if (reservedSeats[hour] && reservedSeats[hour].some(reservation => reservation[0] === mins && reservation[1] === j)) {
+                            const reservation = reservedSeats[hour].find(reservation => reservation[0] === mins && reservation[1] === j);
+                            seatSlot.className = 'seat-slot reserved';
+                            const userLink = document.createElement('a');
+                            userLink.href = reservation[3]; 
+                            userLink.textContent = reservation[2]; 
+                            userLink.title = reservation[2]; 
+                            userLink.style.color = 'white'; 
+                            userLink.style.textDecoration = 'none'; 
+                            seatSlot.innerHTML = '';
+                            seatSlot.appendChild(userLink); 
+                        }
+                        row.appendChild(seatSlot);
                     }
-                    row.appendChild(seatSlot);
+                    table.appendChild(row);
                 }
-                table.appendChild(row);
             }
         }
 
         timeSlotsContainer.appendChild(table);
     }
-    
+
     function populateLabDropdown() {
         for (let i = 1; i <= 3; i++) {
             const option = document.createElement('option');
@@ -78,36 +71,60 @@ document.addEventListener('DOMContentLoaded', function() {
             labDropdown.appendChild(option);
         }
     }
-    
-    function generateWeekCalendar() {
-        calendarContainer.innerHTML = '';
-    
-        let startOfWeek = new Date(currentDate);
-        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
-        
-        for (let i = 0; i < 7; i++) {
-            const date = new Date(startOfWeek);
-            date.setDate(startOfWeek.getDate() + i);
-    
-            const dateButton = document.createElement('button');
-            dateButton.classList.add('date-button', 'calendar-day');
-            dateButton.textContent = date.toDateString();
-            dateButton.value = date.toISOString().split('T')[0];
-    
-            dateButton.addEventListener('click', function() {
-                currentDate = new Date(this.value);
-                updateSelectedDate();
-                createLabs(); 
-            });
-    
-            calendarContainer.appendChild(dateButton);
-        }
+
+    function handleSearch() {
+        const searchDate = searchDateInput.value;
+        const searchTime = searchTimeInput.value;
+        const searchLab = labDropdown.value; 
+        createLabs(searchDate, searchTime, searchLab);
     }
     
-    labDropdown.addEventListener('change', createLabs);
+    function setCurrentWeekForDateInput() {
+        const currentDate = new Date();
+        const firstDayOfWeek = currentDate.getDate() - currentDate.getDay();
+        const lastDayOfWeek = firstDayOfWeek + 6; 
     
-    updateSelectedDate();
+        const startDate = new Date(currentDate.setDate(firstDayOfWeek));
+        const endDate = new Date(currentDate.setDate(lastDayOfWeek));
+    
+        const formatDate = (date) => date.toISOString().split('T')[0];
+    
+        const searchDateInput = document.querySelector('.search-date');
+        searchDateInput.setAttribute('min', formatDate(startDate));
+        searchDateInput.setAttribute('max', formatDate(endDate));
+    }
+
+    function populateTimeDropdown() {
+        const timeDropdown = document.querySelector('.search-time');
+        timeDropdown.innerHTML = ''; 
+        
+        const startHour = 9;
+        const endHour = 18;
+    
+        for (let hour = startHour; hour < endHour; hour++) {
+            let displayHour = hour > 12 ? hour - 12 : hour;
+            let amPm = hour >= 12 ? 'PM' : 'AM';
+            
+            let option = document.createElement('option');
+            option.value = `${hour}:00`;
+            option.textContent = `${displayHour}:00 ${amPm}`;
+            timeDropdown.appendChild(option);
+    
+            option = document.createElement('option');
+            option.value = `${hour}:30`;
+            option.textContent = `${displayHour}:30 ${amPm}`;
+            timeDropdown.appendChild(option);
+        }
+    }
+
+    searchButton.addEventListener('click', handleSearch);
+    
+    labDropdown.addEventListener('change', () => {
+        createLabs(searchDateInput.value, searchTimeInput.value, labDropdown.value);
+    });
+    
+    setCurrentWeekForDateInput();
     createLabs();
     populateLabDropdown();
-    generateWeekCalendar();
+    populateTimeDropdown();
 });

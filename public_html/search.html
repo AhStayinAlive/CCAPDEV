@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Remove Reservation</title>
-  <link rel="stylesheet" href="search.css">
+  <title>DLSU Lab Reservation System</title>
+  <link rel="stylesheet" href="search.css"> <!-- Ensure the stylesheet link is correct -->
 </head>
 <body>
   <header>
@@ -22,13 +22,32 @@
         </ul>
     </nav>
     <div class="user-info">
-        <span>Currently Logged in As: <strong><span id="loggedInUser">Pierre Ramos</span></strong></span><br>
-        <span>Account Type: <strong><span id="accountType">Lab Technician</span></strong></span>
+        <span>Currently Logged in As: <strong>Pierre Ramos</strong></span><br>
+        <span>Account Type: <strong>Lab Technician</strong></span>
     </div>
   </header>
   <main>
-    <h2>Search for Users / Free Slots</h2>
+    <h2>Lab Reservation Management</h2>
+    <section>
+      <div class="date-selector">
+        <button class="prev-date">Previous</button>
+        <span class="selected-date">[Selected Date Here]</span>
+        <button class="next-date">Next</button>
+      </div>
+      <div class="lab-selection">
+        <label for="lab-dropdown">Select Lab:</label>
+        <select class="lab-dropdown">
+          <!-- Lab options will be dynamically populated -->
+        </select>
+      </div>
+      <div class="calendar-container">
+        <!-- Week calendar will be dynamically generated here -->
+      </div>
+      <div class="time-slots-container">
+        <!-- Time slots will be dynamically generated here -->
+      </div>
+    </section>
   </main>
-  <script src="search.js"></script>
+  <script src="reservation-management.js"></script> <!-- Ensure the script source is correctly referenced -->
 </body>
 </html>

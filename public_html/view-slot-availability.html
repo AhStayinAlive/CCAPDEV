@@ -29,21 +29,32 @@
 	<div class="booking-container">
 		<h2>View Lab Slot Availabilities</h2>
 		
-		<div>
-			<span class="lab-selector">
-				<label for="lab-dropdown">Choose a lab:</label>
-				<select class="lab-dropdown" id="lab-dropdown">
-				</select>
-			</span>
-			
-			<div class="selected-date"></div>
-			
-			<div class="calendar-container"></div>
+		<div class="search-interface">
+			<div class="input-group">
+				<div class="date-selector">
+					<label for="search-date">Select date:</label>
+					<input type="date" class="search-date" id="search-date">
+				</div>
+				<div class="lab-selector">
+					<label for="lab-dropdown">Choose a lab:</label>
+					<select class="lab-dropdown" id="lab-dropdown">
+					</select>
+				</div>
+				<div class="time-selector">
+					<label for="search-time">Select time:</label>
+					<select class="search-time" id="search-time">
+					</select>
+				</div>
+			</div>
+			<div class="search-button-container">
+				<button class="search-button">Search</button>
+			</div>
 		</div>
 		
 		<div class="time-slots-container">
+
 		</div>
-	</div>
+	</div>		
 	
 	<script src="view-slot-availability.js"></script>
 </body>
