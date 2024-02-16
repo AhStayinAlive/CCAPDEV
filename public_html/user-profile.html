@@ -43,6 +43,39 @@
       <button id="editProfileBtn">Edit Profile</button>
       <button id="deleteAccountBtn">Delete Account</button>
     </div>
+
+    <!-- Edit Profile Form -->
+    <div id="editProfileForm" class="popup">
+      <form id="profileForm">
+        <label for="profilePicture">Profile Picture:</label>
+        <input type="file" id="profilePictureInput" name="profilePicture">
+        
+        <label for="profileName">Name:</label>
+        <input type="text" id="profileNameInput" name="name" value="Pierre Ramos">
+
+        <label for="contactNumber">Contact Number:</label>
+        <input type="text" id="contactNumberInput" name="contactNumber" value="09123456789">
+
+        <label for="email">Email:</label>
+        <input type="email" id="emailInput" name="email" value="pierre.ramos@dlsu.edu.ph">
+
+        <label for="biography">Biography:</label>
+        <textarea id="biographyInput" name="biography">A lab technician at De La Salle University.</textarea>
+
+        <button type="button" id="changePasswordBtn">Change Password</button>
+        <input type="submit" value="Save Changes">
+        <button type="button" onclick="hideEditProfileForm()">Cancel</button>
+      </form>
+    </div>
+
+<!-- Current Password Confirmation Popup -->
+<div id="currentPasswordPopup" class="popup">
+  <p>Enter your current password to continue:</p>
+  <input type="password" id="currentPasswordInput">
+  <button type="button" id="confirmPasswordBtn">Confirm</button>
+  <button type="button" onclick="hideCurrentPasswordPopup()">Cancel</button>
+</div>
+
   </main>
   <div id="deletePopup" class="popup">
     <p>Are you sure you want to delete this account?</p>
