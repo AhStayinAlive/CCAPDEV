@@ -84,15 +84,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+  displayReservations();
+
   document.getElementById('reservations').addEventListener('click', function(event) {
     if (event.target.classList.contains('editButton')) {
-			const reservationId = parseInt(event.target.dataset.id);
-			const reservation = reservationData.find(reservation => reservation.id === reservationId);
-			if (reservation) {
-				showEditForm(reservation);
-			}
-		}
-	});
+      const rowIndex = event.target.parentNode.parentNode.rowIndex - 1; // Adjust index to account for table header
+      const reservation = reservationData[rowIndex];
+      if (reservation) {
+        showEditForm(reservation, rowIndex);
+      }
+    }
+  });
 
   function showEditForm(reservation) {
     const editForm = `
@@ -122,14 +124,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  function updateReservation(editedReservation) {
-    const index = reservationData.findIndex(reservation => reservation.id === editedReservation.id);
-    if (index !== -1) {
-      reservationData[index] = editedReservation;
-    }
-    editFormContainer.style.display = 'none';
-    displayReservations();
-  }
+  function updateReservation(editedReservation, rowIndex) {
+	  reservationData[rowIndex] = editedReservation;
+	  editFormContainer.style.display = 'none';
+	  displayReservations();
+	}
   
   displayReservations();
 });
