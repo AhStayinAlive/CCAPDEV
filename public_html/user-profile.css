@@ -44,3 +44,52 @@ nav ul li a:hover, nav ul li a:focus {
 main {
   padding: 20px;
 }
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-picture {
+    flex: 0 0 150px;
+    padding-right: 20px;
+  }
+  
+  .profile-picture img {
+    width: 100%;
+    border-radius: 50%;
+  }
+  
+  .profile-details {
+    flex: 1;
+  }
+  
+  .profile-details h3 {
+    margin-top: 0;
+  }
+  
+  .profile-actions {
+    text-align: right;
+  }
+  
+  .profile-actions button {
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    z-index: 1000;
+  }
+  
