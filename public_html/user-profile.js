@@ -23,11 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Confirm Current Password button event
     document.getElementById('confirmPasswordBtn').addEventListener('click', function() {
-      var currentPassword = document.getElementById('currentPasswordInput').value;
-      // Here you would verify the current password with the server
-      hideCurrentPasswordPopup();
-      // Logic for password change would go here
+        var currentPassword = document.getElementById('currentPasswordInput').value;
+        var newPassword = document.getElementById('newPasswordInput').value;
+        // Here you would verify the current password and then update to the new password on the server
+        // After updating the password:
+        hideCurrentPasswordPopup();
+        // You may want to add feedback for the user here, like an alert or a message showing success/failure
     });
+  
   
     // Saving changes (submitting the edit profile form)
     document.getElementById('profileForm').addEventListener('submit', function(event) {

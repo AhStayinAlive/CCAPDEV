@@ -62,7 +62,7 @@
       <form id="profileForm">
         <label for="profilePicture">Profile Picture:</label>
         <input type="file" id="profilePictureInput" name="profilePicture">
-        
+
         <label for="profileName">Name:</label>
         <input type="text" id="profileNameInput" name="name" value="Pierre Ramos">
 
@@ -81,12 +81,25 @@
       </form>
     </div>
 
-<div id="currentPasswordPopup" class="popup">
-  <p>Enter your current password to continue:</p>
-  <input type="password" id="currentPasswordInput">
-  <button type="button" id="confirmPasswordBtn">Confirm</button>
-  <button type="button" onclick="hideCurrentPasswordPopup()">Cancel</button>
-</div>
+	<div id="currentPasswordPopup" class="popup">
+	  <p>Enter your current password to continue:</p>
+	  <input type="password" id="currentPasswordInput">
+	  <button type="button" id="confirmPasswordBtn">Confirm</button>
+	  <button type="button" onclick="hideCurrentPasswordPopup()">Cancel</button>
+	</div>
+
+    <div id="currentPasswordPopup" class="popup">
+      <p>Enter your current password:</p>
+      <input type="password" id="currentPasswordInput" placeholder="Current Password">
+      
+      <p>Enter your new password:</p>
+      <input type="password" id="newPasswordInput" placeholder="New Password">
+      
+      <div class="button-container">
+        <button type="button" id="confirmPasswordBtn" class="update-btn">Update Password</button>
+        <button type="button" onclick="hideCurrentPasswordPopup()" class="cancel-btn">Cancel</button>
+      </div>
+    </div>
 
   </main>
   <div id="deletePopup" class="popup">
