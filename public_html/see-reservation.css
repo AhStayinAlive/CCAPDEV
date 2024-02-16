@@ -61,11 +61,3 @@ table th {
   background-color: #27382A;
   color: white;
 }
-
-#editFormContainer {
-  display: none;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-top: 20px;
-  background-color: white;
-}

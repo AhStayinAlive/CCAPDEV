@@ -2,32 +2,29 @@ document.addEventListener('DOMContentLoaded', function() {
   const reservationsTableBody = document.querySelector('#reservations tbody');
   const editFormContainer = document.getElementById('editFormContainer');
   
-  // Sample reservation data
   let reservationData = [
-    { id: 1, lab: 1, time: '9:00 AM', seat: 1, user: 'Juan dela Cruz' },
-  { id: 2, lab: 2, time: '9:30 AM', seat: 2, user: 'Maria Santos' },
-  { id: 3, lab: 3, time: '10:00 AM', seat: 3, user: 'Pedro Reyes' },
-  { id: 4, lab: 1, time: '10:30 AM', seat: 4, user: 'Sofia Rivera' },
-  { id: 5, lab: 2, time: '11:00 AM', seat: 5, user: 'Diego Garcia' },
-  { id: 6, lab: 3, time: '11:30 AM', seat: 6, user: 'Juan dela Cruz' },
-  { id: 7, lab: 1, time: '12:00 PM', seat: 7, user: 'Maria Santos' },
-  { id: 8, lab: 2, time: '12:30 PM', seat: 8, user: 'Pedro Reyes' },
-  { id: 9, lab: 3, time: '1:00 PM', seat: 9, user: 'Sofia Rivera' },
-  { id: 10, lab: 1, time: '1:30 PM', seat: 10, user: 'Diego Garcia' },
-  { id: 11, lab: 2, time: '2:00 PM', seat: 1, user: 'Juan dela Cruz' },
-  { id: 12, lab: 3, time: '2:30 PM', seat: 2, user: 'Maria Santos' },
-  { id: 13, lab: 1, time: '3:00 PM', seat: 3, user: 'Pedro Reyes' },
-  { id: 14, lab: 2, time: '3:30 PM', seat: 4, user: 'Sofia Rivera' },
-  { id: 15, lab: 3, time: '4:00 PM', seat: 5, user: 'Diego Garcia' },
-  { id: 16, lab: 1, time: '4:30 PM', seat: 6, user: 'Juan dela Cruz' },
-  { id: 17, lab: 2, time: '5:00 PM', seat: 7, user: 'Maria Santos' },
-  { id: 18, lab: 3, time: '5:30 PM', seat: 8, user: 'Pedro Reyes' },
-  { id: 19, lab: 1, time: '6:00 PM', seat: 9, user: 'Sofia Rivera' },
-  { id: 20, lab: 2, time: '6:30 PM', seat: 10, user: 'Diego Garcia' },
-    // Add more sample data rows as needed
+	  { lab: 'Lab 1', time: '9:00 AM', seat: 1, user: 'Juan dela Cruz' },
+	  { lab: 'Lab 2', time: '9:30 AM', seat: 2, user: 'Maria Santos' },
+	  { lab: 'Lab 3', time: '10:00 AM', seat: 3, user: 'Pedro Reyes' },
+	  { lab: 'Lab 1', time: '10:30 AM', seat: 4, user: 'Sofia Rivera' },
+	  { lab: 'Lab 2', time: '11:00 AM', seat: 5, user: 'Diego Garcia' },
+	  { lab: 'Lab 3', time: '11:30 AM', seat: 6, user: 'Juan dela Cruz' },
+	  { lab: 'Lab 1', time: '12:00 PM', seat: 7, user: 'Maria Santos' },
+	  { lab: 'Lab 2', time: '12:30 PM', seat: 8, user: 'Pedro Reyes' },
+	  { lab: 'Lab 3', time: '1:00 PM', seat: 9, user: 'Sofia Rivera' },
+	  { lab: 'Lab 1', time: '1:30 PM', seat: 10, user: 'Diego Garcia' },
+	  { lab: 'Lab 2', time: '2:00 PM', seat: 1, user: 'Juan dela Cruz' },
+	  { lab: 'Lab 3', time: '2:30 PM', seat: 2, user: 'Maria Santos' },
+	  { lab: 'Lab 1', time: '3:00 PM', seat: 3, user: 'Pedro Reyes' },
+	  { lab: 'Lab 2', time: '3:30 PM', seat: 4, user: 'Sofia Rivera' },
+	  { lab: 'Lab 3', time: '4:00 PM', seat: 5, user: 'Diego Garcia' },
+	  { lab: 'Lab 1', time: '4:30 PM', seat: 6, user: 'Juan dela Cruz' },
+	  { lab: 'Lab 2', time: '5:00 PM', seat: 7, user: 'Maria Santos' },
+	  { lab: 'Lab 3', time: '5:30 PM', seat: 8, user: 'Pedro Reyes' },
+	  { lab: 'Lab 1', time: '6:00 PM', seat: 9, user: 'Sofia Rivera' },
+	  { lab: 'Lab 2', time: '6:30 PM', seat: 10, user: 'Diego Garcia' }
   ];
 
-  // Display reservations
   function displayReservations() {
     reservationsTableBody.innerHTML = '';
     reservationData.forEach(reservation => {
@@ -42,8 +39,47 @@ document.addEventListener('DOMContentLoaded', function() {
       reservationsTableBody.appendChild(row);
     });
   }
+  
+	document.getElementById('labFilter').addEventListener('change', function() {
+        filterAndSortReservations();
+    });
 
-  // Event listener for edit button click
+    document.getElementById('sortSelect').addEventListener('change', function() {
+        filterAndSortReservations();
+    });
+
+    function filterAndSortReservations() {
+        let filteredReservations = filterReservations(reservationData);
+        let sortedReservations = sortReservations(filteredReservations);
+        populateTable(sortedReservations);
+    }
+
+    function filterReservations(reservationData) {
+        let labFilter = document.getElementById('labFilter').value;
+        return reservationData.filter(reservation => labFilter === '0' || reservation.lab === `Lab ${labFilter}`);
+    }
+
+    function sortReservations(reservationData) {
+        let sortValue = document.getElementById('sortSelect').value;
+        return reservationData.sort((a, b) => {
+            if (a[sortValue] < b[sortValue]) return -1;
+            if (a[sortValue] > b[sortValue]) return 1;
+            return 0;
+        });
+    }
+	
+	function populateTable(reservationData) {
+        const tableBody = document.getElementById('reservations').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = ''; 
+        reservationData.forEach(reservation => {
+            let row = tableBody.insertRow();
+            ['lab', 'time', 'seat', 'user'].forEach(field => {
+                let cell = row.insertCell();
+                cell.textContent = reservation[field];
+            });
+        });
+    }
+
   reservationsTableBody.addEventListener('click', function(event) {
     if (event.target.classList.contains('editButton')) {
       const reservationId = parseInt(event.target.dataset.id);
@@ -54,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Function to show edit form
   function showEditForm(reservation) {
     const editForm = `
       <form id="editForm">
@@ -72,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
     editFormContainer.innerHTML = editForm;
     editFormContainer.style.display = 'block';
     
-    // Event listener for form submission
     const editFormElement = document.getElementById('editForm');
     editFormElement.addEventListener('submit', function(event) {
       event.preventDefault();
@@ -84,19 +118,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Function to update reservation
   function updateReservation(editedReservation) {
-    // Update reservation in the data
     const index = reservationData.findIndex(reservation => reservation.id === editedReservation.id);
     if (index !== -1) {
       reservationData[index] = editedReservation;
     }
-    // Hide edit form
     editFormContainer.style.display = 'none';
-    // Redisplay reservations
     displayReservations();
   }
-
-  // Initial display
+  
   displayReservations();
 });

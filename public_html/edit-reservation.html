@@ -12,7 +12,6 @@
     <nav>
         <ul>
             <li><a href="view-slot-availability.html">View Slot Availability</a></li>
-			<li><a href="search.html">Search for Users / Free Slots</a></li>
 			<li><a href="make-reservation.html">Make a Reservation</a></li>
 			<li><a href="see-reservation.html">See Reservations</a></li>
 			<li><a href="edit-reservation.html">Edit Reservations</a></li>
@@ -28,8 +27,22 @@
   </header>
   <main>
     <h2>Edit Reservation</h2>
+	<div id="filterControls">
+        <label for="labFilter">Filter by Lab:</label>
+        <select id="labFilter">
+            <option value="0">All Labs</option>
+            <option value="1">Lab 1</option>
+            <option value="2">Lab 2</option>
+            <option value="3">Lab 3</option>
+        </select>
+        <label for="sortSelect">Sort By:</label>
+        <select id="sortSelect">
+            <option value="time">Time</option>
+            <option value="user">User</option>
+            <option value="seat">Seat</option>
+        </select>
+    </div>
 	<div id="editFormContainer">
-      <!-- Edit form will be dynamically added here -->
     </div><br>
 	<table id="reservations">
       <thead>
@@ -42,7 +55,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Reservation rows will be dynamically added here -->
       </tbody>
     </table>
   </main>

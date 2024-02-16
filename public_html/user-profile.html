@@ -12,7 +12,6 @@
     <nav>
         <ul>
 			<li><a href="view-slot-availability.html">View Slot Availability</a></li>
-			<li><a href="search.html">Search for Users / Free Slots</a></li>
 			<li><a href="make-reservation.html">Make a Reservation</a></li>
 			<li><a href="see-reservation.html">See Reservations</a></li>
 			<li><a href="edit-reservation.html">Edit Reservations</a></li>
@@ -42,9 +41,23 @@
     <div class="profile-actions">
       <button id="editProfileBtn">Edit Profile</button>
       <button id="deleteAccountBtn">Delete Account</button>
-    </div>
+    </div><br>
+	<hr><br>
+    <table id="reservationsTable">
+      <thead>
+        <tr>
+          <th>Lab No.</th>
+          <th>Time Slot</th>
+          <th>Seat No.</th>
+          <th>User</th>
+          <th>Date/Time of Request</th>
+          <th>Date/Time of Reservation</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
 
-    <!-- Edit Profile Form -->
     <div id="editProfileForm" class="popup">
       <form id="profileForm">
         <label for="profilePicture">Profile Picture:</label>
@@ -62,13 +75,12 @@
         <label for="biography">Biography:</label>
         <textarea id="biographyInput" name="biography">A lab technician at De La Salle University.</textarea>
 
-        <button type="button" id="changePasswordBtn">Change Password</button>
-        <input type="submit" value="Save Changes">
-        <button type="button" onclick="hideEditProfileForm()">Cancel</button>
+        <button type="button" id="changePasswordBtn">Change Password</button><br>
+		<button type="button" id="cancelBtn" onclick="hideEditProfileForm()">Cancel</button>
+        <input type="submit" id="saveBtn" value="Save Changes">
       </form>
     </div>
 
-<!-- Current Password Confirmation Popup -->
 <div id="currentPasswordPopup" class="popup">
   <p>Enter your current password to continue:</p>
   <input type="password" id="currentPasswordInput">
@@ -82,7 +94,7 @@
     <input type="password" id="confirmPassword" placeholder="Enter password to confirm">
     <button id="confirmDelete">Delete</button>
     <button id="cancelDelete">Cancel</button>
-  </div>  
+  </div>
   <script src="user-profile.js"></script>
 </body>
 </html>
