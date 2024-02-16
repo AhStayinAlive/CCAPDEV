@@ -1,7 +1,7 @@
 const selectedSeats = [];
 const reservedSeats = [
-    { labNumber: '1', timeSlot: '10:00 AM', seatNumber: 'Seat 3', name: 'Sofia Rivera', profile: '#profileUserA' },
-    { labNumber: '1', timeSlot: '10:30 AM', seatNumber: 'Seat 2', name: 'Diego Garcia', profile: '#profileUserB' },
+    { labNumber: '1', timeSlot: '10:00 AM', seatNumber: 'Seat 3', name: 'Sofia Rivera', profile: 'user-profile.html' },
+    { labNumber: '1', timeSlot: '10:30 AM', seatNumber: 'Seat 2', name: 'Diego Garcia', profile: 'user-profile.html' },
     { labNumber: '1', timeSlot: '2:00 PM', seatNumber: 'Seat 3', name: 'Anon.', profile: '#profileUserC' }
 ];
 
@@ -105,6 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function proceedWithReservation() {
 		const name = usernameInput.value;
+		if(!name) {
+			name = "Anon.";
+		}
 
 		selectedSeats.forEach(seat => {
 			seat.name = name;

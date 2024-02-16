@@ -73,22 +73,26 @@ document.addEventListener('DOMContentLoaded', function() {
         tableBody.innerHTML = ''; 
         reservationData.forEach(reservation => {
             let row = tableBody.insertRow();
-            ['lab', 'time', 'seat', 'user'].forEach(field => {
-                let cell = row.insertCell();
-                cell.textContent = reservation[field];
+			['lab', 'time', 'seat', 'user', 'id'].forEach(field => {
+				let cell = row.insertCell();
+				if (field === 'id') {
+					cell.innerHTML = `<button class="editButton" data-id="${reservation[field]}">Edit</button>`;
+				} else {
+					cell.textContent = reservation[field];
+				}
             });
         });
     }
 
-  reservationsTableBody.addEventListener('click', function(event) {
+  document.getElementById('reservations').addEventListener('click', function(event) {
     if (event.target.classList.contains('editButton')) {
-      const reservationId = parseInt(event.target.dataset.id);
-      const reservation = reservationData.find(reservation => reservation.id === reservationId);
-      if (reservation) {
-        showEditForm(reservation);
-      }
-    }
-  });
+			const reservationId = parseInt(event.target.dataset.id);
+			const reservation = reservationData.find(reservation => reservation.id === reservationId);
+			if (reservation) {
+				showEditForm(reservation);
+			}
+		}
+	});
 
   function showEditForm(reservation) {
     const editForm = `

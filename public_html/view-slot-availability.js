@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         table.appendChild(headerRow);
 
         const reservedSeats = {
-            10: [[0, 3, 'Sofia Rivera', '#profileUserA'], [30, 5, 'Diego Garcia', '#profileUserB']],
+            10: [[0, 3, 'Sofia Rivera', 'user-profile.html'], [30, 5, 'Diego Garcia', 'user-profile.html']],
             14: [[0, 2, 'Anon.', '#profileUserC']],
         };
 
