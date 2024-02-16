@@ -2,21 +2,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let reservations = [
         { 
             lab: 'Lab 1', 
-            timeSlot: '09:00 - 10:00', 
+            timeSlot: '09:00 AM - 9:30 AM', 
             seatNo: 1, 
-            user: 'John Doe', 
-            status: 'Confirmed',
-            requestDateTime: '2023-10-01 08:00', // Date and time of reservation request
-            reservationDateTime: '2023-10-03 09:00' // Date and time of the reservation
+            user: 'Maria Santos', 
+            requestDateTime: '2023-10-01 08:00',
+            reservationDateTime: '2023-10-03 09:00'
         },
         { 
             lab: 'Lab 2', 
-            timeSlot: '10:00 - 11:00', 
+            timeSlot: '10:00 AM - 10:30 AM', 
             seatNo: 2, 
-            user: 'Jane Doe', 
-            status: 'Confirmed',
+            user: 'Pedro Reyes', 
             requestDateTime: '2023-10-02 09:30',
             reservationDateTime: '2023-10-04 10:00'
+        },
+		{ 
+            lab: 'Lab 3', 
+            timeSlot: '2:30 PM - 3:00 PM', 
+            seatNo: 9, 
+            user: 'Diego Garcia', 
+            requestDateTime: '2023-10-02 09:30',
+            reservationDateTime: '2023-10-07 2:30'
         },
     ];
 
@@ -55,8 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.innerHTML = ''; 
         reservations.forEach(reservation => {
             let row = tableBody.insertRow();
-            // Adjusted to include new fields
-            ['lab', 'timeSlot', 'seatNo', 'user', 'status', 'requestDateTime', 'reservationDateTime'].forEach(field => {
+            ['lab', 'timeSlot', 'seatNo', 'user','requestDateTime', 'reservationDateTime'].forEach(field => {
                 let cell = row.insertCell();
                 cell.textContent = reservation[field];
             });
